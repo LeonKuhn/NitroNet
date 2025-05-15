@@ -1,4 +1,4 @@
-Welcome to the Github page of NitroNet, the first NO$_2$ profile retrieval for TROPOMI!
+Welcome to the Github page of NitroNet, the first NO_2 profile retrieval for TROPOMI!
 
 
 
