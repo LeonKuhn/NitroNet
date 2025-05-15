@@ -196,27 +196,24 @@ where
 On success, the folder ```~/NitroNet/data/TROPOMI``` should exist and be structured as follows:
 
 ```
-~/NitroNet/data/TROPOMI
-│
-└───L2
-│   │   
-│   └───NO2
-│   │    └───RPRO
-│   │       └───2022
-│	  │							└───05
-│		│									└───21
-│		│									│		│ 	S5P_RPRO_L2__NO2_*.nc
-│		│									└───22
-│		│											│ 	S5P_RPRO_L2__NO2_*.nc
-│   │
-│   └───O3_TOT
-│   │    └───RPRO
-│   │       └───2022
-│	  │							└───05
-│		│									└───21
-│		│									│		│ 	S5P_RPRO_L2__O3_TOT_*.nc
-│		│									└───22
-│		│											│ 	S5P_RPRO_L2__O3_TOT_*.nc
+~/NitroNet/data/TROPOMI/
+└── L2/
+    ├── NO2/
+    │   └── RPRO/
+    │       └── 2022/
+    │           └── 05/
+    │               ├── 21/
+    │               │   └── S5P_RPRO_L2__NO2_*.nc
+    │               └── 22/
+    │                   └── S5P_RPRO_L2__NO2_*.nc
+    └── O3/
+        └── RPRO/
+            └── 2022/
+                └── 05/
+                    ├── 21/
+                    │   └── S5P_RPRO_L2__O3_TOT_*.nc
+                    └── 22/
+                        └── S5P_RPRO_L2__O3_TOT_*.nc
 ```
 
 
