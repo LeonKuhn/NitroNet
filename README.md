@@ -18,17 +18,7 @@ Kuhn, L.: *NitroNet – A deep-learning NO2 profile retrieval for the TROPOMI sa
 
 #### How can NitroNet be used?
 
-NitroNet is written in the Python programming language with only few dependencies. Its functionality comprises:
-
-- downloading the required input data
-- applying the neural network to TROPOMI data on a per-orbit level (with optional parallelization)
-- rudimentary evaluation against TROPOMI and surface observations
-
-> [!IMPORTANT]
->
-> NitroNet is not a Python package, but rather a collection of scripts. It can only be obtained via this Github page.
-
-
+NitroNet is written in the Python programming language with only few dependencies. Its functionality comprises downloading the required input data and applying the neural network to TROPOMI data on a per-orbit level (with optional parallelization. NitroNet is not a Python package, but rather a collection of scripts. It can only be obtained via this Github page.
 
 #### License
 
