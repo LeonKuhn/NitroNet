@@ -1,0 +1,64 @@
+[general]
+    "NO2_tropomi_dir" = "./data/TROPOMI/L2/NO2/RPRO/"
+    "O3_tropomi_dir" = "./data/TROPOMI/L2/O3_TOT/RPRO/"
+    "EDGARv5_dir" = "./data/edgarv5/"
+    "ERA5_dir" = "./data/ERA5/test/"
+
+    "log_dir" = "./NitroNet/logs/test/"
+
+    "lat_boundaries" = [45, 55]
+    "lon_boundaries" = [5, 15]
+    "start_date" = 2022-05-21
+    "end_date" = 2022-05-22
+
+[preproc]
+    "output_dir" = "./preproc/test/"
+    "debug_plot_dir" = "./preproc_debug_plots/" # either false or a directory
+
+[preproc.slurm]
+    "--time" = "00:03:00"
+    "--array" = 1
+    "--cpus-per-task" = 1
+    "--mem" = 180_000
+    "--gres=gpu" = 2
+
+[main]
+    "output_dir" = "./output/test/"
+    "use_cuda" = false
+    "batchsize" = 1000
+    "random_seed" = 42
+
+    "z_space" = [
+        1, 100, 200, 300, 400, 500, 600, 700, 800, 900,
+        1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900,
+        2000, 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900,
+    ]
+
+    "uncerts" = false
+    "winsor_threshold" = 0.15
+    "winsor_blacklist" = ["NO2_tropcol_sat", "day", "SC_urban", "SC_cropland", "SC_forest", "emi_all", "emi_surface"]
+    "sample_method" = "replace"
+    "print_winsorization_info" = false
+    "use_bias_correction" = true
+    "reject_partial_nans" = true
+
+[main.submodels]
+    [main.submodels.bottom]
+        dir = "./trained_models/2023-08-09_6530_bottom/"
+        alt_min = 0
+        alt_max = 8000
+
+    [main.submodels.top]
+        dir = "./trained_models/2023-11-14_862d_top/"
+        alt_min = 8000
+        alt_max = 100_000
+
+[main.F-model]
+        dir = "./trained_models/F_2023-09-29_1b4a/"
+
+[main.slurm]
+    "--time" = "00:03:00"
+    "--array" = 1
+    "--cpus-per-task" = 1
+    "--mem" = 70_000
+    "--gres=gpu" = 1

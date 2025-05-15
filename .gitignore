@@ -1,0 +1,8 @@
+/configs/test_parallel_gpu_viper.toml
+/trained_models/
+/trained_models.zip
+/merge_with_ghost.py
+/merge_with_tropomi.py
+/validation_ghost.py
+/validation_tropomi.py
+/env.yml
