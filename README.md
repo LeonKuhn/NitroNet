@@ -1,20 +1,18 @@
- <img src="/Users/leonkuhn/academia/projects/nitronet/nitronet_logo.png" alt="nn_logo" style="zoom: 15%;" />
-
 Welcome to the Github page of NitroNet, the first NO$_2$ profile retrieval for TROPOMI!
 
 
 
 #### What is NitroNet?
 
-NitroNet is an artificial neural network, trained on simulation data produced by the regional chemistry-transport model WRF-Chem. It takes tropospheric NO$_2$ vertical column densities (VCDs) from TROPOMI alongside other ancillary data as input in order to predict a corresponding NO$_2$ profile.
+NitroNet is an artificial neural network, trained on simulation data produced by the regional chemistry-transport model WRF-Chem. It takes tropospheric NO2 vertical column densities (VCDs) from TROPOMI alongside other ancillary data as input in order to predict a corresponding NO2 profile.
 
 For a short description (~ 20 pages), see:
 
-Kuhn, L., Beirle, S., Osipov, S., Pozzer, A., and Wagner, T.: *NitroNet – a machine learning model for the prediction of tropospheric NO$_2$ profiles from TROPOMI observations*, Atmos. Meas. Tech., 17, 6485–6516, https://doi.org/10.5194/amt-17-6485-2024, 2024.
+Kuhn, L., Beirle, S., Osipov, S., Pozzer, A., and Wagner, T.: *NitroNet – a machine learning model for the prediction of tropospheric NO2 profiles from TROPOMI observations*, Atmos. Meas. Tech., 17, 6485–6516, https://doi.org/10.5194/amt-17-6485-2024, 2024.
 
 For a detailed description (~ 200 pages), see:
 
-Kuhn, L.: *NitroNet – A deep-learning NO$_2$ profile retrieval for the TROPOMI satellite instrument*, Dissertation, Universität Heidelberg, https://doi.org/10.11588/heidok.00036022, 2024.
+Kuhn, L.: *NitroNet – A deep-learning NO2 profile retrieval for the TROPOMI satellite instrument*, Dissertation, Universität Heidelberg, https://doi.org/10.11588/heidok.00036022, 2024.
 
 
 
@@ -60,8 +58,8 @@ For specific request, please contact: l.kuhn@mpic.de
 NitroNet requires the following input data:
 
 - TROPOMI L2 data, specifically 
-  - the tropospheric NO$_2$ vertical column density (VCD)
-  - the total O$_3$ vertical column density
+  - the tropospheric NO2 vertical column density (VCD)
+  - the total O3 vertical column density
 - The ERA5 variables
   - (single-level): ```boundary_layer_height```, ```2m_temperature```, ```boundary_layer_dissipation```
   - (pressure-level): ```vertical_velocity```, ```u_component_of_wind```, ```v_component_of_wind``` at pressure levels of 1000, 950, 900, 850, 800, 750, and 700 hPa
@@ -291,14 +289,14 @@ where the 5-digit number in the filenames indicate the orbit number.
 
 NitroNet's output files contain the following main variables
 
-- ```no2_conc```  The NO$_2$ concentration profile in units of molec / cm$^3$
-- ```no2_conc_NN_err```  The relative prediction error of the NO$_2$ concentration in molec / cm$^3$, based on the evaluation on the test set. E.g. a value of -5 % means that NitroNet underestimated the NO$_2$ concentration by 5 % on average on the test set.
-- ```qa```  The same as the qa-value of TROPOMI, but multiplied with the sign of the TROPOMI NO$_2$ VCD. Taking the absolute value of ```qa``` returns the original qa-value, as present in the TROPOMI data
+- ```no2_conc```  The NO2 concentration profile in units of molec / cm$^3$
+- ```no2_conc_NN_err```  The relative prediction error of the NO2 concentration in molec / cm$^3$, based on the evaluation on the test set. E.g. a value of -5 % means that NitroNet underestimated the NO2 concentration by 5 % on average on the test set.
+- ```qa```  The same as the qa-value of TROPOMI, but multiplied with the sign of the TROPOMI NO2 VCD. Taking the absolute value of ```qa``` returns the original qa-value, as present in the TROPOMI data
 - ```F-value```  A unitless correction factor for the cross-sensitivities of molybdenum-based chemiluminescence measurements. This variable is only available at the surface.
 
 > [!NOTE]
 >
-> If ```"uncerts" = true```  is selected in the configuration file, the output will contain two further variables named ```no2_conc_err_lower```and ```no2_conc_err_upper```, which resemble the $\pm 1 \sigma$ uncertainty band of the predicted NO$_2$ concentration based on Monte-Carlo error propagation of TROPOMI's NO$_2$ VCD retrieval error.
+> If ```"uncerts" = true```  is selected in the configuration file, the output will contain two further variables named ```no2_conc_err_lower```and ```no2_conc_err_upper```, which resemble the $\pm 1 \sigma$ uncertainty band of the predicted NO2 concentration based on Monte-Carlo error propagation of TROPOMI's NO2 VCD retrieval error.
 
 
 
@@ -337,13 +335,13 @@ The following table describes the available options in NitroNet's configuration 
 |                     | ```batchsize```                                              | Number of instances to process per neural network forward pass (integer ≥ 1). Larger batchsizes result in shorter runtimes but require more memory. |
 |                     | ```random_seed```                                            | Seed of the random number generator involved in the winsorization procedure.<br />ℹ️ Specific choices do not significantly affect results, but ensure reproducability between runs |
 |                     | ```z_space```                                                | Vertical output grid in meters above ground                  |
-|                     | ```uncerts```                                                | *true*: NitroNet will perform Monte-Carlo based uncertainty propagation of the NO$_2$ VCD through the neural network. Slows down execution by a factor of 3. |
+|                     | ```uncerts```                                                | *true*: NitroNet will perform Monte-Carlo based uncertainty propagation of the NO2 VCD through the neural network. Slows down execution by a factor of 3. |
 |                     | ```winsor_threshold```                                       | Density threshold below which an instance feature will be replaced by a sample from its marginal probability distribution in the winsorization procedure (float between 0 and 1). Larger values reduce generalization errors (e.g. on foreign domains) but result in partial loss of input information. |
 |                     | ```winsor_blacklist```                                       | Input variables to exclude from the winsorization procedure.<br />⚠️ It is recommended to include at least "NO2_tropcol_sat", "day", "SC_urban", "SC_cropland", "SC_forest", "emi_all", and "emi_surface".<br />ℹ️ For a full list of input variable names, see section 4.4 |
 |                     | ```sample_method```                                          | Controls the behavior of the winsorization procedure<br />.<br />"replace": replace low-density input data by samples from their marginal density distribution<br /><br />"skip": skips the winsorization procedure entirely<br /><br />"ignore": same as "skip", but still computes computes feature densities in order to obtain winsorization statistics (see "print_winsorization_info" below)<br /><br /><br />"remove": remove low-density input data entirely |
 |                     | ```print_winsorization_info```                               | *true*: NitroNet will print winsorization statistics, e.g. number of replaced instances. |
 |                     | ```use_bias_correction```                                    | *true*: NitroNet will apply the empirical bias correction obtained from evaluation on the test set. |
-|                     | ```reject_partial_nans```                                    | *true*: NO$_2$ profiles are set to np.nan entirely if they include a single np.nan along the vertical axis.<br />ℹ️ partial np.nans along the vertical axis can result in the context of composite models (see section 4.2). |
+|                     | ```reject_partial_nans```                                    | *true*: NO2 profiles are set to np.nan entirely if they include a single np.nan along the vertical axis.<br />ℹ️ partial np.nans along the vertical axis can result in the context of composite models (see section 4.2). |
 | **[main.slurm]**    |                                                              |                                                              |
 |                     | ```--time```, ```--array```, ```--cpus_per_task```, ```--mem``` | see above                                                    |
 |                     | ```--gres=gpu```                                             | The amount of GPUs to request via slurm. The amount of GPUs to request via slurm.<br />⚠️ Even if no GPU is used (```cude=false```) the user might wish to request GPUs in order to gain access to sufficient memory (see above). |
@@ -403,8 +401,8 @@ The ```winsor_blacklist``` option requires a list of NitroNet input variables, w
 | ```cloud_pressure```          | cloud pressure                                               | TROPOMI |
 | ```aerosol_index```           | aerosol index                                                | TROPOMI |
 | ```surface_pressure```        | surface pressure                                             | TROPOMI |
-| ```NO2_tropcol_sat```         | tropospheric NO$_2$ vertial column density                   | TROPOMI |
-| ```O3_tropcol_sat```          | total O$_3$ vertial column density                           | TROPOMI |
+| ```NO2_tropcol_sat```         | tropospheric NO2 vertial column density                   | TROPOMI |
+| ```O3_tropcol_sat```          | total O3 vertial column density                           | TROPOMI |
 | ```blh_ERA5```                | boundary layer height                                        | ERA5    |
 | ```bld_ERA5```                | boundary layer dissipation                                   | ERA5    |
 | ```T2m_ERA5```                | temperature at 2 m                                           | ERA5    |
@@ -419,7 +417,7 @@ The ```winsor_blacklist``` option requires a list of NitroNet input variables, w
 | ```SC_cropland```             | binary cropland mask                                         | TROPOMI |
 | ```SC_forest```               | binary forest mask                                           | TROPOMI |
 | ```day```                     | weekday/weekend flag                                         | ---     |
-| ```influx```                  | NO$_2$ VCD influx from neighbouring groundpixels             | TROPOMI |
+| ```influx```                  | NO2 VCD influx from neighbouring groundpixels             | TROPOMI |
 
 > [!Note]
 >
@@ -490,7 +488,7 @@ python preproc_to_slurm.py NitroNet configs/test_parallel.toml
 
 > [!NOTE]
 >
-> The warning ```Critical warning: Found 0 possible O3 files, expected exactly 1. This orbit will be skipped``` occurs if no suitable O$_3$ orbit files were found. This is sometimes the case and can be ignored here.
+> The warning ```Critical warning: Found 0 possible O3 files, expected exactly 1. This orbit will be skipped``` occurs if no suitable O3 orbit files were found. This is sometimes the case and can be ignored here.
 
 where
 
