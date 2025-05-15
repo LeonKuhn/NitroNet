@@ -1,4 +1,4 @@
-<img width="1102" alt="nitronet_logo" src="https://github.com/user-attachments/assets/1b9adda7-70cb-40ae-93d1-a83f27cb0f16" />
+<img src="https://github.com/user-attachments/assets/1b9adda7-70cb-40ae-93d1-a83f27cb0f16" alt="nitronet_logo" style="width: 30%;" />
 
 Welcome to the Github page of NitroNet, the first NO2 profile retrieval for TROPOMI!
 
