@@ -101,7 +101,7 @@ conda create -n NitroNet python=3.12 cdsapi numpy matplotlib seaborn datashader 
 conda activate NitroNet
 ```
 
-This creates a new environment named NitroNet. Alternatively, the user can use an environment set up of their chosing, as long as it includes the packages listed in ```env.yml```.
+This creates a new environment named NitroNet.
 
 Next, download and unpack the NitroNet's weights and the EDGARv5 emission data, which is currently hosted on the Datashare service of the Max Planck Computing & Data Facility
 
