@@ -395,11 +395,11 @@ The ```winsor_blacklist``` option requires a list of NitroNet input variables, w
 | ```T2m_ERA5```                | temperature at 2 m                                           | ERA5    |
 | ```vertical_speed_ERA5_[i]``` | vertical velocity ([i] must be replaced by any number from 0 to 6) | ERA5    |
 | ```ERA5_total_wind_[i]```     | horizontal wind speed ([i] must be replaced by any number from 0 to 6) | ERA5    |
-| ```emi_all```                 | NO$_x$ emissions                                             | EDGARv5 |
-| ```emi_surface```             | NO$_x$ emissions (surface emissions)                         | EDGARv5 |
-| ```emi_energy_1```            | NO$_x$ emissions (SNAP sector 1)                             | EDGARv5 |
-| ```emi_industry_3```          | NO$_x$ emissions (SNAP sector 3)                             | EDGARv5 |
-| ```emi_industry_4```          | NO$_x$ emissions (SNAP sector 4)                             | EDGARv5 |
+| ```emi_all```                 | NOx emissions                                                | EDGARv5 |
+| ```emi_surface```             | NOx emissions (surface emissions)                            | EDGARv5 |
+| ```emi_energy_1```            | NOx emissions (SNAP sector 1)                                | EDGARv5 |
+| ```emi_industry_3```          | NOx emissions (SNAP sector 3)                                | EDGARv5 |
+| ```emi_industry_4```          | NOx emissions (SNAP sector 4)                                | EDGARv5 |
 | ```SC_urban```                | binary urban mask                                            | TROPOMI |
 | ```SC_cropland```             | binary cropland mask                                         | TROPOMI |
 | ```SC_forest```               | binary forest mask                                           | TROPOMI |
